@@ -8,7 +8,7 @@ import IconButton from '@material-ui/core/IconButton';
 import AirportShuttleSharpIcon from '@material-ui/icons/AirportShuttleSharp';
 import SearchIcon from '@material-ui/icons/Search';
 import { Link } from 'react-router-dom';
-import { Grid } from '@material-ui/core';
+
 
 import InputBase from '@material-ui/core/InputBase';
 
@@ -93,11 +93,11 @@ export default function Header() {
             
             <AirportShuttleSharpIcon fontSize='large'/>
           </IconButton>
-          <Link to="/" ><Typography variant="h5"  className={classes.title}>
+          <Link to="/"  style={{textDecoration:"none"}} ><Typography variant="h5"  className={classes.title}>
             Cars 
           </Typography></Link>
           <div className={classes.search}>
-            <div className={classes.searchIcon}>
+          <div className={classes.searchIcon}>
               <SearchIcon />
             </div>
             <InputBase
@@ -108,10 +108,11 @@ export default function Header() {
               }}
               inputProps={{ 'aria-label': 'search' }}
             />
+            
           </div>
           
 
-          <Link to='/signin'><Button className={classes.button}> Login / SingUp</Button></Link>
+          <Link to='/signin' style={{textDecoration:"none"}}><Button className={classes.button}> Login / SingUp</Button></Link>
         </Toolbar>
       </AppBar>
       

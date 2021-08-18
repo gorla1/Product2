@@ -8,7 +8,10 @@ import {makeStyles} from '@material-ui/core/'
 const useStyles = makeStyles((theme) => ({
     cardGrid : {
       paddingTop : theme.spacing(8),
-      paddingBottom : theme.spacing(8)
+      paddingBottom : theme.spacing(8),
+      marginTop: theme.spacing(2),
+      backgroundColor:'#C2FFD9'
+      
     },
     card: {
       height : '100%',
@@ -39,8 +42,8 @@ export const ProductList = () => {
     return (
         <>
         
-        <Container className={classes.cardGrid} maxWidth="md">
-                <Grid container spacing={4}>
+        <Container  className={classes.cardGrid} maxWidth="lg" >
+                <Grid container spacing={5}>
             {
                 isLoading ? <><center><b><h3>Loading</h3></b></center> </>
                 :

@@ -3,6 +3,7 @@ import {Grid , Typography , Button , Card , CardActions, CardContent , CardMedia
 import {makeStyles} from '@material-ui/core/'
 import {Link} from 'react-router-dom'
 
+
 const useStyles = makeStyles((theme) => ({
     cardGrid : {
       paddingTop : theme.spacing(8),
@@ -20,7 +21,8 @@ const useStyles = makeStyles((theme) => ({
       textAlign:'center'
     },
     cardaction:{
-      textAlign:'center'
+      textAlign:'center',
+      justifyContent:'center'
     }
   }))
 
@@ -38,10 +40,10 @@ export const Product = (props) => {
                                 title="Image title"
                               />
                               <CardContent className={classes.content}>
-                                  <Typography>{product.Model}</Typography>
+                                  <Typography variant='caption' >{product.Model}</Typography>
                               </CardContent>
                               <CardActions className={classes.cardaction}>
-                                  <Button size="small" color="secondary">
+                                  <Button variant='contained' size="large" color='secondary' >
                                     View
                                   </Button>
                                  

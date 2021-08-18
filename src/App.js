@@ -6,6 +6,7 @@ import Footer from './components/Footer'
 import SignIn from './components/SignIn'
 import SignUp from './components/SignUp'
 import { Container } from '@material-ui/core'
+import Body from './components/Body'
 
 export default function App() {
   return (
@@ -13,7 +14,8 @@ export default function App() {
       <Container>
       <Header/>
        <Switch>
-       <Route exact path='/' component={ProductList}/>
+       <Route exact path='/' component={Body}/>
+       <Route path='/cars' component={ProductList}/>
        <Route  path='/product/:id' component={ProductDetail}/>
        <Route  path='/signup' component={SignUp}/>
        <Route  path='/signin' component={SignIn}/>
