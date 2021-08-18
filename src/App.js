@@ -1,25 +1,39 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import {Route ,  Switch} from 'react-router-dom'
+import { ProductDetail , ProductList } from './components/products'
+import Header from './components/Header'
+import Footer from './components/Footer'
+import SignIn from './components/SignIn'
+import SignUp from './components/SignUp'
 
-function App() {
+export default function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <>
+      <Header/>
+      <main style={{marginTop: "10px"}}>
+      
+       <Switch>
+       <Route exact path='/' component={ProductList}/>
+       <Route  path='/product/:id' component={ProductDetail}/>
+       <Route  path='/SignIn' component={SignIn}/>
+       <Route  path='/SignUp' component={SignUp}/>
+      
+
+       <Route render={()=><HandleNotFound/>} />
+       
+       </Switch>
+       <Footer/>
+       </main>
+        
+    </>
+  )
 }
 
-export default App;
+
+function HandleNotFound(){
+  return(
+    <>
+     <img src="https://image.freepik.com/free-vector/error-404-concept-landing-page_52683-18367.jpg" alt="not found" />
+    </>
+  )
+}

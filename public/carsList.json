@@ -1,0 +1,63 @@
+
+[
+    {
+      "id": 1,
+      "price": 0,
+      "year": 2011,
+      "KMs": 0,
+      "Model": " Maruti Alto LXI",
+      "img": "https://i.ibb.co/NjTGDtG/maruti-alto-old.jpg",
+      "owner": "1st Owner",
+      "FuelType": "petrol"
+    },
+    {
+      "id": 2,
+      "price": 0,
+      "year": 2020,
+      "KMs": 0,
+      "Model": " Maruti S PRESSO VXI",
+      "img": "https://i.ibb.co/wLV0CTJ/Maruti-Suzuki-S-Presso.jpg",
+      "owner": "1st Owner",
+      "FuelType": "petrol"
+    },
+    {
+      "id": 3,
+      "price": 0,
+      "year": 2008,
+      "KMs": 0,
+      "Model": " Maruti Alto LXI | MANUAL",
+      "img": "https://i.ibb.co/Mc4VrMs/maruti-suzuki-alto-lxi-282011-29-500x500.png",
+      "owner": "1st Owner",
+      "FuelType": "petrol"
+    },
+    {
+      "id": 4,
+      "price": 0,
+      "year": 2013,
+      "KMs": 0,
+      "Model": " Maruti Alto K10 LXI MANUAL",
+      "img": "https://i.ibb.co/dmT8Rrx/image.jpg",
+      "owner": "1st Owner",
+      "FuelType": "petrol"
+    },
+    {
+      "id": 5,
+      "price": 0,
+      "year": 2011,
+      "KMs": 0,
+      "Model": " Maruti Swift VXI MANUAL",
+      "img": "https://i.ibb.co/ryjvT4c/images.jpg",
+      "owner": "1st Owner",
+      "FuelType": "petrol"
+    },
+    {
+      "id": 6,
+      "price": 0,
+      "year": 2010,
+      "KMs": 0,
+      "Model": " Maruti Ritz ZXI MANUAL",
+      "img": "https://i.ibb.co/zbM86vV/20191224174611-c967.jpg",
+      "owner": "1st Owner",
+      "FuelType": "petrol"
+    }
+  ]
