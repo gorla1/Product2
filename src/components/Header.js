@@ -8,6 +8,7 @@ import IconButton from '@material-ui/core/IconButton';
 import AirportShuttleSharpIcon from '@material-ui/icons/AirportShuttleSharp';
 import SearchIcon from '@material-ui/icons/Search';
 import { Link } from 'react-router-dom';
+import { Grid } from '@material-ui/core';
 
 import InputBase from '@material-ui/core/InputBase';
 
@@ -29,8 +30,10 @@ const useStyles = makeStyles((theme) => ({
   },
   button:{
       color:'blue',
-      marginLeft:theme.spacing(8),
-      padding:theme.spacing(3)
+      marginLeft:theme.spacing(30),
+      padding:theme.spacing(3),
+      textAlign:'center',
+    justifyContent:'flex-end'
   },
 
   search: {
@@ -43,10 +46,11 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: 0,
     width: '100%',
     [theme.breakpoints.up('sm')]: {
-      marginLeft: theme.spacing(1),
+      marginLeft: theme.spacing(25),
       width: 'auto',
     },
   },
+  
   searchIcon: {
     padding: theme.spacing(0, 2),
     height: '100%',
@@ -82,9 +86,9 @@ export default function Header() {
   const classes = useStyles();
 
   return (
-    <div className={classes.root}>
+    <div  className={classes.root}>
       <AppBar  position="static" className={classes.header}>
-        <Toolbar>
+        <Toolbar justifyContent='center' alignItems='center'>
           <IconButton edge="start" className={classes.menuButton}>
             
             <AirportShuttleSharpIcon fontSize='large'/>
@@ -107,9 +111,10 @@ export default function Header() {
           </div>
           
 
-          <Link to='/SignUp'><Button className={classes.button}> Login / SingUp</Button></Link>
+          <Link to='/signin'><Button className={classes.button}> Login / SingUp</Button></Link>
         </Toolbar>
       </AppBar>
+      
     </div>
   );
 }

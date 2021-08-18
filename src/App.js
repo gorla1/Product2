@@ -5,25 +5,24 @@ import Header from './components/Header'
 import Footer from './components/Footer'
 import SignIn from './components/SignIn'
 import SignUp from './components/SignUp'
+import { Container } from '@material-ui/core'
 
 export default function App() {
   return (
     <>
+      <Container>
       <Header/>
-      <main style={{marginTop: "10px"}}>
-      
        <Switch>
        <Route exact path='/' component={ProductList}/>
        <Route  path='/product/:id' component={ProductDetail}/>
-       <Route  path='/SignIn' component={SignIn}/>
-       <Route  path='/SignUp' component={SignUp}/>
-      
-
+       <Route  path='/signup' component={SignUp}/>
+       <Route  path='/signin' component={SignIn}/>
        <Route render={()=><HandleNotFound/>} />
-       
        </Switch>
+       
        <Footer/>
-       </main>
+       </Container>
+       
         
     </>
   )

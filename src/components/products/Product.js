@@ -15,6 +15,12 @@ const useStyles = makeStyles((theme) => ({
     },
     cardMedia:{
       paddingTop : '56.25%'
+    },
+    content:{
+      textAlign:'center'
+    },
+    cardaction:{
+      textAlign:'center'
     }
   }))
 
@@ -31,12 +37,11 @@ export const Product = (props) => {
                                 image={product.img}
                                 title="Image title"
                               />
-                              <CardContent>
+                              <CardContent className={classes.content}>
                                   <Typography>{product.Model}</Typography>
-                                  <Typography>{product.price}</Typography>
                               </CardContent>
-                              <CardActions>
-                                  <Button size="small" color="primary">
+                              <CardActions className={classes.cardaction}>
+                                  <Button size="small" color="secondary">
                                     View
                                   </Button>
                                  
