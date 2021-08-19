@@ -37,6 +37,9 @@ const useStyles = makeStyles((theme) => ({
       },
       media:{
         height: '70%'
+      },
+      button:{
+        margin:theme.spacing(5),
       }
    
 }));
@@ -63,7 +66,10 @@ export default function Body() {
           <Typography gutterBottom variant="h5" component="h2">
             A WHOLE NEW WORLD OF CARS
           </Typography>
-         <Link to='/cars' style={{textDecoration : 'none'}}><Button size="lg" variant='contained' color="secondary">VIEW ALL CARS</Button></Link>
+         <Link to='/cars' style={{textDecoration : 'none'}}><Button    className={classes.button} size="lg" variant='contained' color="secondary">VIEW ALL CARS</Button></Link>
+         <Link to='/mahindra' style={{textDecoration:'none'}}><Button  className={classes.button} size="lg" variant='contained' color="secondary">Mahindra</Button></Link>
+         <Link to='/ford' style={{textDecoration : 'none'}}><Button    className={classes.button} size="lg" variant='contained' color="secondary">Ford</Button></Link>
+         <Link to='/maruthi' style={{textDecoration : 'none'}}><Button className={classes.button} size="lg" variant='contained' color="secondary">Maruthi</Button></Link>
         </CardContent>
         </Card>
          </Paper>
