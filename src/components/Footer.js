@@ -1,28 +1,34 @@
-import React from 'react';
-import { makeStyles} from '@material-ui/core/styles';
+import React from "react"
+class Footer extends React.Component {
+    render() {
+        return (
+            <div>
 
+                <div className="row" style={{fontSize: "18px",marginTop:'20px' , height:'80px',backgroundColor:'#6E85B2'}}>
+                    
+                        
+                        <div className="col" >
+                            <ul className="nav justify-content-center m-3">
+                                <li className="nav-item" style={{color:'white'}}>
+                                    <a className="nav-link active text-light"  >Terms</a>
+                                </li>
+                                <li className="nav-item">
+                                    <a className="nav-link text-light">Privacy and Cookie Police</a>
+                                </li>
+                                <li className="nav-item">
+                                    <a className="nav-link text-light" >Intellectual Property</a>
+                                </li>
+                            </ul>
 
-const useStyles = makeStyles((theme) => ({
-    footer:{
-        backgroundColor:'#BDD2B6',
-        height:theme.spacing(10),
-        marginBottom:theme.spacing(2)
-    }
+                        </div>
+                    
 
+                </div>
 
-}));
-
-export default function Footer() {
-
-    const classes = useStyles()
-
-    return (
-        
-            
-            <div className={classes.footer} >
-            <h6>welcome</h6>
             </div>
-            
-        
-    )
+
+        )
+    }
 }
+
+export default Footer

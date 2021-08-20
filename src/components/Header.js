@@ -82,7 +82,7 @@ const useStyles = makeStyles((theme) => ({
  
 }));
 
-export default function Header() {
+export default function Header(props) {
   const classes = useStyles();
 
   return (
@@ -111,9 +111,15 @@ export default function Header() {
             
           </div>
           
+          {
+            !props.auth ? 
+        
 
           <Link to='/signin' style={{textDecoration:"none"}}><Button className={classes.button}> Login / SingUp</Button></Link>
-        </Toolbar>
+         :
+         <Button onClick={()=>props.logoutHandler()} className={classes.button}> LOGOUT </Button>
+        }
+          </Toolbar>
       </AppBar>
       
     </div>

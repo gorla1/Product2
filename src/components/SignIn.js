@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -46,8 +46,38 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SignIn() {
+export default function SignIn(props) {
   const classes = useStyles();
+
+  const [form,setForm] = useState({
+    email:'gorladineshyadav1@gmail.com',
+    password: 9440544350
+  })
+
+    const [error,setError] = useState({
+      email:'',
+      password:''
+    })
+
+   const  handleChange=(e)=>{
+      setForm({
+        ...form,[e.target.name]:e.target.value
+      })
+    }
+    const handleSubmit=(e)=>{
+      e.preventDefault()
+      if(form.email=='gorladineshyadav1@gmail.com' && form.password === 9440544350){
+        props.loginHandler()
+        console.log(props)
+        props.history.push('/Checkout')
+      }
+      else{
+        setError({
+          email:'you have entered wrong email',
+          password:"either email or password is incorrect"
+        })
+      }
+    }
 
   return (
     <Container component="main" maxWidth="xs">
@@ -59,7 +89,7 @@ export default function SignIn() {
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
-        <form className={classes.form} noValidate>
+        <form onSubmit={handleSubmit} className={classes.form} noValidate>
           <TextField
             variant="outlined"
             margin="normal"
@@ -68,8 +98,10 @@ export default function SignIn() {
             id="email"
             label="Email Address"
             name="email"
+            value={form.email}
             autoComplete="email"
             autoFocus
+            onChange={(e)=>handleChange(e)}
           />
           <TextField
             variant="outlined"
@@ -77,10 +109,12 @@ export default function SignIn() {
             required
             fullWidth
             name="password"
+            value={form.password}
             label="Password"
             type="password"
             id="password"
             autoComplete="current-password"
+            onChange={(e)=>handleChange(e)}
           />
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
@@ -97,7 +131,7 @@ export default function SignIn() {
           </Button>
           <Grid container>
             <Grid item xs>
-              <Link href="#" variant="body2">
+              <Link  variant="body2">
                 Forgot password?
               </Link>
             </Grid>

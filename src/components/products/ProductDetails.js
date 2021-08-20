@@ -1,7 +1,7 @@
 import React , {useState, useEffect,useCallback} from 'react'
 import axios  from 'axios'
 import {Grid, Paper, Typography , Button , Card , CardActions, CardContent , CardMedia, makeStyles} from '@material-ui/core'
-
+import { Link } from 'react-router-dom'
 
 const useStyles = makeStyles((theme) => ({
     cardGrid : {
@@ -31,6 +31,7 @@ const useStyles = makeStyles((theme) => ({
 
 export const ProductDetail = (props) => {
     const classes = useStyles(); 
+  
     const [productData , setProductData ] = useState({})
     const [isLoading , setIsLoading] = useState(true)
 
@@ -50,6 +51,7 @@ export const ProductDetail = (props) => {
           console.log("cleaned up")
         }
     }, [getProductData])
+    
     
     return (
         <div>
@@ -77,9 +79,11 @@ export const ProductDetail = (props) => {
                                   </Grid>
                               </CardContent>
                               <CardActions className={classes.button} >
-                                  <Button size="large"  variant='contained' color="secondary">
+                                  <Link to='/Checkout'><Button size="large"  variant='contained' color="secondary" 
+                                 onClick={()=> props.getPrice(productData.price)}
+                                  >
                                     Buy Now
-                                  </Button>
+                                  </Button></Link>
                                  
                               </CardActions>
                           </Card>

@@ -114,7 +114,7 @@ export default function SignUp() {
               />
             </Grid>
           </Grid>
-          <Link to='/'><Button
+          <Link to='/Checkout'><Button
             type="submit"
             fullWidth
             variant="contained"
