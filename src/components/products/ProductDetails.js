@@ -37,7 +37,7 @@ export const ProductDetail = (props) => {
 
 
     const getProductData = useCallback( async ()=>{
-        const res = await axios.get('/carDetail.json');
+        const res = await axios.get('https://api.jsonbin.io/b/611f4110c5159b35ae01202b');
         const findProductData = res.data.find((p)=> p.id === parseInt( props.match.params.id))
         console.log(findProductData)
         setProductData(findProductData)
