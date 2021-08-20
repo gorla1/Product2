@@ -3,6 +3,9 @@ import axios from 'axios'
 import {Product} from './Product'
 import {Grid , Container} from '@material-ui/core'
 import {makeStyles} from '@material-ui/core/'
+import { dispatchProductList } from './action'
+import { bindActionCreators } from 'redux'
+import { useSelector, useDispatch} from 'react-redux'
 
 
 const useStyles = makeStyles((theme) => ({
@@ -25,13 +28,25 @@ const useStyles = makeStyles((theme) => ({
 
 export const ProductList = () => {
     const classes = useStyles(); 
-    const [productsData, setProductsData] = useState([])
-    const [isLoading , setIsLoading] = useState(true)
+    // REDUX STATE
+
+  const productsData = useSelector((state) => state.productsReducer)
+   const dispatch = useDispatch()
+   const actions = bindActionCreators(
+     {
+       dispatchProductList
+     },
+     dispatch
+   )
+    // REACT STATES
+    // const [productsData, setProductsData] = useState([])
+    // const [isLoading , setIsLoading] = useState(true)
 
     const getData =  useCallback( async ()=>{
         const res = await axios.get('https://api.jsonbin.io/b/611f4110c5159b35ae01202b') 
-        setProductsData(res.data)
-        setIsLoading(false)
+        actions.dispatchProductList(res.data)
+        //setProductsData(res.data)
+        //setIsLoading(false)
     }, []) 
 
     useEffect(()=>{
@@ -46,9 +61,9 @@ export const ProductList = () => {
         <Container  className={classes.cardGrid} maxWidth="lg" >
                 <Grid container spacing={5}>
             {
-                isLoading ? <><center><b><h3>Loading</h3></b></center> </>
+               productsData.isProductsLoading ? <><center><b><h3>Loading</h3></b></center> </>
                 :
-                productsData.map((p) => <Product key={p.id} product={p} /> ) 
+                productsData.productsList.map((p) => <Product key={p.id} product={p} /> ) 
             }
                 </Grid>
         </Container>
