@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
 
 export default function Checkout(props) {
     const [form,setForm]=useState({
@@ -132,7 +133,7 @@ export default function Checkout(props) {
                             ) : null}
                             {count === 3 ? (
                             <div>
-                                <button style={{marginLeft:'35%',marginTop:'10px',marginBottom:"20%"}} className="btn btn-lg btn-warning" type="submit">Place Order</button>
+                              <Link to='/'><button style={{marginLeft:'35%',marginTop:'10px',marginBottom:"20%"}} className="btn btn-lg btn-warning" type="submit" onClick={()=>alert("Thanks for booking!!!!")}>Place Order</button></Link>
                             </div>
                             ) : null}
                         </form>
