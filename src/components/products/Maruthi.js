@@ -1,4 +1,4 @@
-import React ,{useState ,useEffect , useCallback} from 'react'
+import React ,{useEffect , useCallback} from 'react'
 import axios from 'axios'
 import {Product} from './Product'
 import {Grid , Container} from '@material-ui/core'
@@ -44,7 +44,7 @@ export const Maruthi = () => {
         // setProductsData(res.data)
         // setIsLoading(false)
         actions.dispatchProductList(res.data)
-    }, []) 
+    }, [actions]) 
 
     
     useEffect(()=>{

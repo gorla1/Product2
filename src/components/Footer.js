@@ -1,4 +1,5 @@
 import React from "react"
+import { Link } from "react-router-dom"
 class Footer extends React.Component {
     render() {
         return (
@@ -10,13 +11,13 @@ class Footer extends React.Component {
                         <div className="col" >
                             <ul className="nav justify-content-center m-3">
                                 <li className="nav-item" style={{color:'white'}}>
-                                    <a className="nav-link active text-light"  >Terms</a>
+                                    <Link to='#' className="text-light">Terms</Link>
                                 </li>
                                 <li className="nav-item">
-                                    <a className="nav-link text-light">Privacy and Cookie Police</a>
+                                <Link to='#' className="text-light">Privacy</Link>
                                 </li>
                                 <li className="nav-item">
-                                    <a className="nav-link text-light" >Intellectual Property</a>
+                                <Link to='https://github.com/gorla1/Product2/tree/gh-pages' className="text-light">G.DINESH</Link>
                                 </li>
                             </ul>
 

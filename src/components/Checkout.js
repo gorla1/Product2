@@ -1,7 +1,12 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
+//import { productsReducer } from './products/reducer'
+import {useSelector } from 'react-redux'
 
 export default function Checkout(props) {
+
+    const productData = useSelector((state)=> state.productsReducer)
+
     const [form,setForm]=useState({
         firstname:'',
         lastname:'',
@@ -102,7 +107,7 @@ export default function Checkout(props) {
                                          <h3>YOUR REGESTIRATION HAS BEEN COMPLETED!</h3>
                                          <h6>we will reach you back soon!!!!</h6>
 
-                                         <h3>PRICE:{props.price}</h3>
+                                         <h3>PRICE:{productData.productDetail.price}</h3>
                                          </div>
                                     {/*    
                                             <div className="d-flex justify-content-between">

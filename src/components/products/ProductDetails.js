@@ -1,4 +1,4 @@
-import React , {useState, useEffect,useCallback} from 'react'
+import React , {useEffect,useCallback} from 'react'
 import axios  from 'axios'
 import {Grid, Paper, Typography , Button , Card , CardActions, CardContent , CardMedia, makeStyles} from '@material-ui/core'
 import { Link } from 'react-router-dom'
@@ -54,7 +54,7 @@ export const ProductDetail = (props) => {
         actions.dispatchProductDetail(findProductData)
        // setProductData(findProductData)
        // setIsLoading(false)
-    },[props.match.params.id])
+    },[actions,props.match.params.id])
 
     useEffect(()=>{
         getProductData()
@@ -91,8 +91,9 @@ export const ProductDetail = (props) => {
                                   </Grid>
                               </CardContent>
                               <CardActions className={classes.button} >
-                                  <Link to='/Checkout'><Button size="large"  variant='contained' color="secondary" 
-                                 onClick={()=> props.getPrice(productData.productDetail.price)}
+                                  <Link to='/Checkout' style={{textDecoration : 'none'}}><Button size="large"  variant='contained' color="secondary" 
+                                  
+                                //  onClick={()=> props.getPrice(productData.productDetail.price)}
                                   >
                                     Buy Now
                                   </Button></Link>

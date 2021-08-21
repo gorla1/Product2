@@ -1,4 +1,4 @@
-import React ,{useState ,useEffect , useCallback} from 'react'
+import React ,{useEffect , useCallback} from 'react'
 import axios from 'axios'
 import {Product} from './Product'
 import {Grid , Container} from '@material-ui/core'
@@ -47,7 +47,7 @@ export const ProductList = () => {
         actions.dispatchProductList(res.data)
         //setProductsData(res.data)
         //setIsLoading(false)
-    }, []) 
+    }, [actions]) 
 
     useEffect(()=>{
         getData()

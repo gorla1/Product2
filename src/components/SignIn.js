@@ -66,10 +66,11 @@ export default function SignIn(props) {
     }
     const handleSubmit=(e)=>{
       e.preventDefault()
-      if(form.email=='gorladineshyadav1@gmail.com' && form.password === 9440544350){
+      if(form.email==='gorladineshyadav1@gmail.com' && form.password === 9440544350){
         props.loginHandler()
         console.log(props)
         props.history.push('/Checkout')
+        console.log(error)
       }
       else{
         setError({
