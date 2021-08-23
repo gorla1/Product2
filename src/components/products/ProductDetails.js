@@ -1,6 +1,6 @@
 import React , {useEffect,useCallback} from 'react'
 import axios  from 'axios'
-import {Grid, Paper, Typography , Button , Card , CardActions, CardContent , CardMedia, makeStyles} from '@material-ui/core'
+import { Paper, Typography , Button , Card , CardActions, CardContent , CardMedia, makeStyles} from '@material-ui/core'
 import { Link } from 'react-router-dom'
 import { dispatchProductDetail } from './action'
 import {useSelector , useDispatch} from 'react-redux'
@@ -15,9 +15,12 @@ const useStyles = makeStyles((theme) => ({
       height : '100%',
     },
     cardMedia:{
-      paddingTop:theme.spacing(4),
-      margin:theme.spacing(8),
-      height:theme.spacing(80)
+      paddingTop:theme.spacing(25),
+      paddingBottom:theme.spacing(10),
+      marginTop:theme.spacing(8),
+      marginLeft:theme.spacing(15),
+      marginRight:theme.spacing(15),
+      height:theme.spacing(70)
     },
     cardcontent:{
       width:'50%',
@@ -28,6 +31,9 @@ const useStyles = makeStyles((theme) => ({
     button:{
       justifyContent:'center',
       alignItems:'center'
+    },
+    typography:{
+      
     }
   }))
 
@@ -48,13 +54,13 @@ export const ProductDetail = (props) => {
     )
 
     const getProductData = useCallback( async ()=>{
-        const res = await axios.get('https://api.jsonbin.io/b/611f4110c5159b35ae01202b');
+        const res = await axios.get('https://api.jsonbin.io/b/6123ae0ac5159b35ae02b2d7');
         const findProductData = res.data.find((p)=> p.id === parseInt( props.match.params.id))
         console.log(findProductData)
         actions.dispatchProductDetail(findProductData)
        // setProductData(findProductData)
        // setIsLoading(false)
-    },[actions,props.match.params.id])
+    },[props.match.params.id])
 
     useEffect(()=>{
         getProductData()
@@ -80,15 +86,13 @@ export const ProductDetail = (props) => {
                                 />
                                 </Paper>
                               <CardContent className={classes.cardcontent} >
-                                <Typography variant="h3" color="secondary">CAR DETAILS</Typography>
-                                <Grid container justifyContent='center' padding='5px' margin='10px'>
-                                  <Grid item padding='5px' margin='5px' xs={6} md={6}><Typography color="secondary" variant="h6">MODEL: {productData.productDetail.Model}</Typography></Grid>
-                                  <Grid item padding='5px' margin='5px' xs={6} md={6}><Typography color="secondary" variant="h6">PRICE: {productData.productDetail.price}RS</Typography></Grid>
-                                  <Grid item padding='5px' margin='5px' xs={6} md={6}><Typography color="secondary" variant="h6">YEAR OF PURCHASE:  {productData.productDetail.year}</Typography></Grid>
-                                  <Grid item padding='5px' margin='5px' xs={6} md={6}><Typography color="secondary" variant="h6">FUEL TYPE {productData.productDetail.FuelType}</Typography></Grid>
-                                  <Grid item padding='5px' margin='5px' xs={6} md={6}><Typography color="secondary" variant="h6">KILOMETERS DRIVEN: {productData.productDetail.KMs}Km</Typography></Grid>
-                                  <Grid item padding='5px' margin='5px' xs={6} md={6}><Typography color="secondary" variant="h6"></Typography></Grid>
-                                  </Grid>
+                                <Typography variant="h3" style={{marginBottom:'10px'}}>CAR DETAILS:</Typography>
+                                  <Typography  variant="h6">Model: {productData.productDetail.Model}</Typography>
+                                  <Typography  variant="h6">Price: {productData.productDetail.price}RS</Typography>
+                                  <Typography  variant="h6">Year of purchase:  {productData.productDetail.year}</Typography>
+                                  <Typography  variant="h6">Fuel Type: {productData.productDetail.FuelType}</Typography>
+                                  <Typography  variant="h6">Kilometers Driven: {productData.productDetail.KMs}Km</Typography>
+                                  
                               </CardContent>
                               <CardActions className={classes.button} >
                                   <Link to='/Checkout' style={{textDecoration : 'none'}}><Button size="large"  variant='contained' color="secondary" 

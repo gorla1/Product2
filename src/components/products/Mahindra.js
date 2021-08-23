@@ -40,11 +40,11 @@ export const Mahindra = () => {
    )
 
     const getData =  useCallback( async ()=>{
-        const res = await axios.get('https://api.jsonbin.io/b/611f4110c5159b35ae01202b') 
+        const res = await axios.get('https://api.jsonbin.io/b/6123ae0ac5159b35ae02b2d7') 
         // setProductsData(res.data)
         // setIsLoading(false)
         actions.dispatchProductList(res.data)
-    }, [actions]) 
+    }, []) 
 
     
     useEffect(()=>{
