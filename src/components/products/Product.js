@@ -40,7 +40,7 @@ export const Product = (props) => {
                                 title="Image title"
                               />
                               <CardContent className={classes.content}>
-                                  <Typography variant='caption' >{product.Model}</Typography>
+                                  <Typography variant='h6' >{product.Model}</Typography>
                               </CardContent>
                               <CardActions className={classes.cardaction}>
                                   <Button variant='contained' size="large" color='secondary' >
