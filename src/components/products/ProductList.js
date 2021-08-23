@@ -43,7 +43,7 @@ export const ProductList = () => {
     // const [isLoading , setIsLoading] = useState(true)
 
     const getData =  useCallback( async ()=>{
-        const res = await axios.get('https://api.jsonbin.io/b/6123ae0ac5159b35ae02b2d7') 
+        const res = await axios.get('https://api.jsonbin.io/b/6123b6e9076a223676affd99') 
         actions.dispatchProductList(res.data)
         //setProductsData(res.data)
         //setIsLoading(false)

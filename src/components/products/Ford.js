@@ -40,7 +40,7 @@ export const Ford = () => {
    )
 
     const getData =  useCallback( async ()=>{
-        const res = await axios.get('https://api.jsonbin.io/b/6123ae0ac5159b35ae02b2d7') 
+        const res = await axios.get('https://api.jsonbin.io/b/6123b6e9076a223676affd99') 
         // setProductsData(res.data)
         // setIsLoading(false)
         actions.dispatchProductList(res.data)
