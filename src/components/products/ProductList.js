@@ -1,11 +1,9 @@
-import React ,{useEffect , useCallback} from 'react'
-import axios from 'axios'
+import React  from 'react'
+
 import {Product} from './Product'
 import {Grid , Container} from '@material-ui/core'
 import {makeStyles} from '@material-ui/core/'
-import { dispatchProductList } from './action'
-import { bindActionCreators } from 'redux'
-import { useSelector, useDispatch} from 'react-redux'
+import { useSelector} from 'react-redux'
 
 
 const useStyles = makeStyles((theme) => ({
@@ -30,28 +28,30 @@ export const ProductList = () => {
     const classes = useStyles(); 
     // REDUX STATE
 
-  const productsData = useSelector((state) => state.productsReducer)
-   const dispatch = useDispatch()
-   const actions = bindActionCreators(
-     {
-       dispatchProductList
-     },
-     dispatch
-   )
+   const productsData = useSelector((state) => state.productsReducer)
+  //  const dispatch = useDispatch()
+  //  const actions = bindActionCreators(
+  //    {
+  //      dispatchProductList
+  //    },
+  //    dispatch
+  //  )
+
+
     // REACT STATES
     // const [productsData, setProductsData] = useState([])
     // const [isLoading , setIsLoading] = useState(true)
 
-    const getData =  useCallback( async ()=>{
-        const res = await axios.get('https://api.jsonbin.io/b/6123b6e9076a223676affd99') 
-        actions.dispatchProductList(res.data)
-        //setProductsData(res.data)
-        //setIsLoading(false)
-    }, []) 
+    // const getData =  useCallback( async ()=>{
+    //     const res = await axios.get('https://api.jsonbin.io/b/6123b6e9076a223676affd99') 
+    //     actions.dispatchProductList(res.data)
+    //     //setProductsData(res.data)
+    //     //setIsLoading(false)
+    // }, []) 
 
-    useEffect(()=>{
-        getData()
-    },[getData])
+    // useEffect(()=>{
+    //     getData()
+    // },[getData])
 
 
     
@@ -63,7 +63,7 @@ export const ProductList = () => {
             {
                productsData.isProductsLoading ? <><center><b><h3>Loading</h3></b></center> </>
                 :
-                productsData.productsList.map((p) => <Product key={p.id} product={p} /> ) 
+                productsData.cars.map((p) => <Product key={p.id} product={p} /> ) 
             }
                 </Grid>
         </Container>

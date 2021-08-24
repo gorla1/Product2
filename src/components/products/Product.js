@@ -43,7 +43,7 @@ export const Product = (props) => {
                                   <Typography variant='h6' >{product.Model}</Typography>
                               </CardContent>
                               <CardActions className={classes.cardaction}>
-                                  <Button variant='contained' size="large" color='secondary' >
+                                  <Button style={{backgroundColor:"Background" }} >
                                     View
                                   </Button>
                                  
