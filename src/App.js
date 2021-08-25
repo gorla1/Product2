@@ -71,7 +71,7 @@ const logoutHandler=()=>{
         <PrivateRoutes auth={auth} path='/checkout' component={Checkout}/>
         
 
-       <PrivateRoutes  path='/signup' component={SignUp}/>
+       <Route  path='/signup' component={SignUp}/>
        <Route  path='/signin' render={(props)=><SignIn {...props} loginHandler ={loginHandler}/>}/>
       
         
