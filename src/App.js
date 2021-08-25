@@ -66,16 +66,16 @@ const logoutHandler=()=>{
        <Route exact path='/' component={Body}/>
        <Route path='/cars' component={ProductList}/>
        
-       
+       <Route path='/product/:id' component={ProductDetail} />
         
-        <PrivateRoutes auth={auth} path='/product/:id' component={ProductDetail}/>
+        <PrivateRoutes auth={auth} path='/checkout' component={Checkout}/>
         
 
-       <Route  path='/signup' component={SignUp}/>
+       <PrivateRoutes  path='/signup' component={SignUp}/>
        <Route  path='/signin' render={(props)=><SignIn {...props} loginHandler ={loginHandler}/>}/>
       
         
-      <Route path='/checkout' component={Checkout}/>
+      
 
        <Route render={()=><HandleNotFound/>} />
        </Switch>
