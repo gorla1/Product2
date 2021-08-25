@@ -29,9 +29,9 @@ export default function Checkout(props) {
         })
     }
     return (
-        <div className="container">
+        <div className="container" style={{height:"75%"}}> 
                 <div className="row">
-                    <div className="col-8 m-auto">
+                    <div className="col-8 m-auto" >
                         <form>
                             <h2 className="text-center">Checkout</h2>
                             <div className="d-flex justify-content-between">
@@ -73,7 +73,7 @@ export default function Checkout(props) {
                                 </table>
                             </div> ) : null}
                             {count === 2 ? (
-                            <div className="border table-borderless">
+                            <div className="border table-borderless" style={{marginBottom:"60px"}}>
                                 <table className="table table-borderless">
                                     <tbody>
                                         <tr>
@@ -138,13 +138,13 @@ export default function Checkout(props) {
                             ) : null}
                             {count === 3 ? (
                             <div>
-                              <Link to='/'><button style={{marginLeft:'35%',marginTop:'10px',marginBottom:"20%"}} className="btn btn-lg btn-warning" type="submit" onClick={()=>alert("Thanks for booking!!!!")}>Place Order</button></Link>
+                              <Link to='/'><button style={{marginLeft:'35%',marginTop:'10px',marginBottom:"20%"}} className="btn btn-lg btn-warning" type="submit">Place Order</button></Link>
                             </div>
                             ) : null}
                         </form>
                         <div>
                             {/* {count === 1 ? null : ( <button className="btn btn-outline-success" onClick={()=>setCount(count-1)}>Back</button>)} */}
-                            {count === 3 ? null : ( <button className="btn btn-outline-success" onClick={()=>setCount(count+1)} >Next</button>)}
+                            {count === 3 ? null : ( <button style={{marginBottom:'20%'}} className="btn btn-outline-success" onClick={()=>setCount(count+1)} >Next</button>)}
                         </div>
                     </div>
                 </div>

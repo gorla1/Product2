@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState} from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -12,6 +12,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import { Redirect } from 'react-router';
 
 function Copyright() {
   return (
@@ -46,8 +47,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SignUp() {
+export default function SignUp(props) {
   const classes = useStyles();
+  const [redirect ,setRedirect] = useState(false)
+  const {from} = props.location.state || {from : {pathname:"/"}}
+if(redirect){
+  return <Redirect to={from}/>
+}
 
   return (
     <Container component="main" maxWidth="xs">
@@ -114,7 +120,7 @@ export default function SignUp() {
               />
             </Grid>
           </Grid>
-          <Link to='/Checkout'><Button
+          <Button
             type="submit"
             fullWidth
             variant="contained"
@@ -123,7 +129,7 @@ export default function SignUp() {
           >
             Sign Up
           </Button>
-          </Link>
+        
           <Grid container justifyContent="flex-end">
             <Grid item>
               <Link to="/SignIn" variant="body2">

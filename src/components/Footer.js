@@ -6,7 +6,7 @@ class Footer extends React.Component {
         return (
             <div>
 
-                <div className="row" style={{fontSize: "18px",marginTop:'20px' , height:'80px',backgroundColor:'#6E85B2'}}>
+                <div className="row" style={{fontSize: "18px", position: "static",backgroundColor:'#6E85B2'}}>
                     
                         
                         <div className="col" >
@@ -34,3 +34,6 @@ class Footer extends React.Component {
 }
 
 export default Footer
+
+
+

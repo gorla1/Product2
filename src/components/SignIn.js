@@ -69,7 +69,7 @@ export default function SignIn(props) {
       if(form.email==='gorladineshyadav1@gmail.com' && form.password === 9440544350){
         props.loginHandler()
         console.log(props)
-        props.history.push('/Checkout')
+        props.history.push('/')
         console.log(error)
       }
       else{

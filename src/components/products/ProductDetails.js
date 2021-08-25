@@ -98,6 +98,7 @@ export const ProductDetail = (props) => {
                                   <Link to='/Checkout' style={{textDecoration : 'none'}}><Button size="large"  variant='contained' color="secondary" 
                                   
                                 //  onClick={()=> props.getPrice(productData.productDetail.price)}
+                                style={{marginBottom:"20px"}}
                                   >
                                     Buy Now
                                   </Button></Link>
