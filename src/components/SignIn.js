@@ -12,7 +12,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-
+import { Redirect } from 'react-router';
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
@@ -49,6 +49,8 @@ const useStyles = makeStyles((theme) => ({
 export default function SignIn(props) {
   const classes = useStyles();
 
+ 
+
   const [form,setForm] = useState({
     email:'gorladineshyadav1@gmail.com',
     password: 9440544350
@@ -79,6 +81,11 @@ export default function SignIn(props) {
         })
       }
     }
+    const [redirect ,setRedirect] = useState(false)
+    const {from} = props.location.state || {from : {pathname:"/"}}
+  if(redirect){
+    return <Redirect to={from}/>
+  }
 
   return (
     <Container component="main" maxWidth="xs">
