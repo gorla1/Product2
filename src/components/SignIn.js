@@ -1,27 +1,27 @@
-import React, { useState } from 'react';
-import Avatar from '@material-ui/core/Avatar';
-import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-import { Link } from 'react-router-dom';
-import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
-import { Redirect } from 'react-router';
+import React, { useState } from "react";
+import { CircularProgress } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
+import { BUTTON, Input } from "./common";
+import Avatar from "@material-ui/core/Avatar";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import { useHistory } from "react-router";
+import { Link, Redirect } from "react-router-dom";
+import Grid from "@material-ui/core/Grid";
+import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
+import Typography from "@material-ui/core/Typography";
+import Container from "@material-ui/core/Container";
+import axios from "axios";
+import { host } from "../Auth/keys";
+
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
+      {"Copyright © "}
       <Link color="inherit" href="https://material-ui.com/">
         Your Website
-      </Link>{' '}
+      </Link>{" "}
       {new Date().getFullYear()}
-      {'.'}
+      {"."}
     </Typography>
   );
 }
@@ -29,16 +29,26 @@ function Copyright() {
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    border: "2px darak",
+    marginBottom: theme.spacing(5),
   },
+  item: {
+    width: theme.spacing(50),
+    padding: theme.spacing(1),
+  },
+  item1: {
+    marginLeft: theme.spacing(13.5),
+  },
+
   avatar: {
     margin: theme.spacing(1),
     backgroundColor: theme.palette.secondary.main,
   },
   form: {
-    width: '100%', // Fix IE 11 issue.
+    width: "100%", // Fix IE 11 issue.
     marginTop: theme.spacing(1),
   },
   submit: {
@@ -47,113 +57,138 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function SignIn(props) {
+  console.log("login", props);
+
   const classes = useStyles();
+  const history = useHistory();
 
- 
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState("");
 
-  const [form,setForm] = useState({
-    email:'gorladineshyadav1@gmail.com',
-    password: 9440544350
-  })
+  const [redirect, setRedirect] = useState(false);
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
+  const [error, setError] = useState({
+    email: "",
+    password: "",
+  });
 
-    const [error,setError] = useState({
-      email:'',
-      password:''
-    })
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
 
-   const  handleChange=(e)=>{
-      setForm({
-        ...form,[e.target.name]:e.target.value
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setLoading(true);
+    // post the daat to the backedn using axios
+    axios
+      .post(`${host}auth/login`, formData)
+      .then((resp) => {
+        console.log(resp);
+        props.loginHandler();
+        setRedirect(true);
+        setLoading(false);
+        localStorage.setItem("key", resp.data.token);
+        localStorage.getItem("key");
+
+        console.log(resp.data.token);
       })
-    }
-    const handleSubmit=(e)=>{
-      e.preventDefault()
-      if(form.email==='gorladineshyadav1@gmail.com' && form.password === 9440544350){
-        props.loginHandler()
-        console.log(props)
-        props.history.push('/')
-        console.log(error)
-      }
-      else{
-        setError({
-          email:'you have entered wrong email',
-          password:"either email or password is incorrect"
-        })
-      }
-    }
-    const [redirect ,setRedirect] = useState(false)
-    const {from} = props.location.state || {from : {pathname:"/"}}
-  if(redirect){
-    return <Redirect to={from}/>
+      .catch((errors) => {
+        console.log(errors.response);
+        if (errors.response) {
+          setError({
+            email: errors.response.data.email,
+            password: errors.response.data.password,
+            error: errors.response.data.error,
+          });
+        } else {
+          setError({ error: "Unexpected Error" });
+        }
+      });
+  };
+
+  const { from } = props.location.state || { from: { pathname: "/" } };
+  if (redirect) {
+    return <Redirect to={from} />;
   }
 
+  const resetMessages = () => {
+    setMessage("")
+    setError([])
+}
   return (
-    <Container component="main" maxWidth="xs">
-      <CssBaseline />
-      <div className={classes.paper}>
-        <Avatar className={classes.avatar}>
-          <LockOutlinedIcon />
-        </Avatar>
-        <Typography component="h1" variant="h5">
-          Sign in
-        </Typography>
-        <form onSubmit={handleSubmit} className={classes.form} noValidate>
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            id="email"
-            label="Email Address"
-            name="email"
-            value={form.email}
-            autoComplete="email"
-            autoFocus
-            onChange={(e)=>handleChange(e)}
-          />
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            name="password"
-            value={form.password}
-            label="Password"
-            type="password"
-            id="password"
-            autoComplete="current-password"
-            onChange={(e)=>handleChange(e)}
-          />
-          <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
-          />
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.submit}
-          >
-            Sign In
-          </Button>
-          <Grid container>
-            <Grid item xs>
-              <Link  variant="body2">
-                Forgot password?
-              </Link>
-            </Grid>
-            <Grid item>
-              <Link to="/SignUp" variant="body2">
-                {"Don't have an account? Sign Up"}
-              </Link>
-            </Grid>
-          </Grid>
-        </form>
-      </div>
-      <Box mt={8}>
-        <Copyright />
-      </Box>
-    </Container>
+    <div style={{ border: "2px dark" }}>
+      <Container component="main" maxWidth="xs" color="black">
+        <CssBaseline />
+        <div className={classes.paper}>
+          <Avatar className={classes.avatar}>
+            <LockOutlinedIcon />
+          </Avatar>
+          <Typography component="h1" variant="h5">
+            Sign in
+          </Typography>
+          {!message ? null : (
+            <h3 style={{ border: "2px solid black", color: "green" }}>
+              {message && message}
+            </h3>
+          )}
+          {!error ? null : (
+            <h3 style={{ color: "red" }}>{error && error.error}</h3>
+          )}
+          {loading ? (
+            <CircularProgress />
+          ) : (
+            <form
+              className={classes.form}
+              onSubmit={handleSubmit}
+              style={{ textAlign: "center" }}
+            >
+              <Grid container>
+                <Grid item className={classes.item}>
+                  <Input
+                    style={{ paddingLeft: "2px", width: "400px" }}
+                    name="email"
+                    placeholder="Enter Email"
+                    value={formData.email}
+                    label="Email"
+                    type="email"
+                    onChange={(e) => handleChange(e)}
+                    error={error.email}
+                  />
+                </Grid>
+                <Grid item className={classes.item}>
+                  <Input
+                    name="password"
+                    placeholder="Enter password"
+                    value={formData.password}
+                    label="Password"
+                    type="password"
+                    onChange={(e) => handleChange(e)}
+                    error={error.password}
+                  />
+                </Grid>
+
+                <Grid item textAlign="center" justifyContent="center">
+                  <Link to="/SignUp" variant="body2">
+                    <Typography variant="caption" className={classes.item1}>
+                      Don't have an account? Sign Up
+                    </Typography>
+                  </Link>
+                </Grid>
+              </Grid>
+
+              <BUTTON type="submit" text="login" color="primary" />
+
+              <Grid container></Grid>
+            </form>
+          )}
+        </div>
+      </Container>
+    </div>
   );
 }

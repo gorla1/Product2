@@ -1,45 +1,35 @@
-import React,{useState} from 'react';
-import Avatar from '@material-ui/core/Avatar';
-import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-import { Link } from 'react-router-dom';
-import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
-import { Redirect } from 'react-router';
+import React, { useState } from "react";
+import Avatar from "@material-ui/core/Avatar";
 
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="https://material-ui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
+import CssBaseline from "@material-ui/core/CssBaseline";
+import CircularProgress from '@material-ui/core/CircularProgress'
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import { Link } from "react-router-dom";
+import Grid from "@material-ui/core/Grid";
+
+import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
+import Typography from "@material-ui/core/Typography";
+import { makeStyles } from "@material-ui/core/styles";
+import Container from "@material-ui/core/Container";
+import { Redirect } from "react-router";
+import axios from "axios";
+import { BUTTON, Input, Checkbox } from "./common";
+import { useHistory } from "react-router";
+import { host } from "../Auth/keys";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
   },
   avatar: {
     margin: theme.spacing(1),
     backgroundColor: theme.palette.secondary.main,
   },
   form: {
-    width: '100%', // Fix IE 11 issue.
+    width: "100%", // Fix IE 11 issue.
     marginTop: theme.spacing(3),
   },
   submit: {
@@ -49,12 +39,65 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SignUp(props) {
   const classes = useStyles();
-  const [redirect ,setRedirect] = useState(false)
-  const {from} = props.location.state || {from : {pathname:"/"}}
-if(redirect){
-  return <Redirect to={from}/>
-}
+  const history = useHistory();
 
+  const [redirectState, setRedirectState] = useState(false);
+  const [message, setMessage] = useState("")
+  const [loading, setLoading] = useState(false)
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+    password2: "",
+    username: "",
+  });
+  const [error, setError] = useState({
+    email: "",
+    password: "",
+    error: "",
+    password2: "",
+    username: "",
+  });
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setLoading(true)
+    // post the daat to the backedn using axios
+
+    axios
+      .post(`${host}auth/register`, formData)
+      .then((resp) => {
+        console.log(resp);
+        setRedirectState(true);
+        setLoading(false)
+        history.push("/signin");
+      })
+      .catch((errors) => {
+        console.log(errors.response);
+        if(errors.response){
+        setError({
+          email: errors.response.data.email,
+          password: errors.response.data.password,
+          error: errors.response.data.error,
+          password2: errors.response.data.password2,
+          username: errors.response.data.username,
+        });
+      }else{
+        setError({error : "Unexpected Error"})
+      }
+      });
+  };
+
+  const { from } = props.location.state || { from: { pathname: "/" } };
+  if (redirectState) {
+    return <Redirect to={from} />;
+  }
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -65,83 +108,84 @@ if(redirect){
         <Typography component="h1" variant="h5">
           Sign up
         </Typography>
-        <form className={classes.form} noValidate>
+
+        {!message ? null 
+                : <h3 style={{border : "2px solid black", color:'green'}}>{message && message}</h3>
+            }
+            {!error ? null 
+                : <h3 style={{ color:'red'}}>{error && error.error}</h3>
+            }
+              {loading ? <CircularProgress /> : 
+        <form className={classes.form} onSubmit={handleSubmit}>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
-              <TextField
-                autoComplete="fname"
-                name="firstName"
-                variant="outlined"
-                required
-                fullWidth
-                id="firstName"
-                label="First Name"
-                autoFocus
+              <Input
+                name="username"
+                placeholder="Enter username"
+                value={formData.username}
+                label="username"
+                type="text"
+                onChange={(e) => handleChange(e)}
+                error={error.username}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                id="lastName"
-                label="Last Name"
-                name="lastName"
-                autoComplete="lname"
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                id="email"
-                label="Email Address"
+              <Input
                 name="email"
-                autoComplete="email"
+                placeholder="Enter Email"
+                value={formData.email}
+                label="Email"
+                type="email"
+                onChange={(e) => handleChange(e)}
+                error={error.email}
               />
             </Grid>
-            <Grid item xs={12}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
+            <Grid item xs={12} sm={6}>
+              <Input
                 name="password"
+                placeholder="Enter password"
+                value={formData.password}
                 label="Password"
                 type="password"
-                id="password"
-                autoComplete="current-password"
+                onChange={(e) => handleChange(e)}
+                error={error.password}
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <Input
+                name="password2"
+                placeholder="confirm password"
+                value={formData.password2}
+                label="Password Confirmation"
+                type="password"
+                onChange={(e) => handleChange(e)}
+                error={error.password2}
               />
             </Grid>
             <Grid item xs={12}>
               <FormControlLabel
-                control={<Checkbox value="allowExtraEmails" color="primary" />}
-                label="I want to receive inspiration, marketing promotions and updates via email."
+                control={
+                  <Checkbox
+                    label="Remember the sign details."
+                    onChange={(e) => handleChange(e)}
+                  />
+                }
               />
             </Grid>
           </Grid>
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.submit}
-          >
-            Sign Up
-          </Button>
-        
+          <BUTTON type="submit" text="Sign Up" color="primary" />
+
           <Grid container justifyContent="flex-end">
             <Grid item>
               <Link to="/SignIn" variant="body2">
-                {"Already have an account? Sign in"}
+                {"Already have an account? Login"}
               </Link>
             </Grid>
           </Grid>
         </form>
+}
       </div>
-      <Box mt={5}>
-        <Copyright />
-      </Box>
     </Container>
   );
 }
+

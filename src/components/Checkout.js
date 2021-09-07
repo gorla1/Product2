@@ -107,44 +107,22 @@ export default function Checkout(props) {
                                          <h3>YOUR REGESTIRATION HAS BEEN COMPLETED!</h3>
                                          <h6>we will reach you back soon!!!!</h6>
 
-                                         <h3>PRICE:{productData.productDetail.price}</h3>
+                                         <h3>PRICE:{productData.details.price}</h3>
                                          </div>
-                                    {/*    
-                                            <div className="d-flex justify-content-between">
-                                                <p>Product 1 - Anice thing</p>
-                                                <p>&#8377; 99.00</p>
-                                            </div>
-                                            <div className="d-flex justify-content-between">
-                                                <p>Product 2 - Another thing</p>
-                                                <p>&#8377; 80.00</p>
-                                            </div>
-                                            <div className="d-flex justify-content-between">
-                                                <p>Product 3 - Something else</p>
-                                                <p>&#8377; 70.00</p>
-                                            </div>
-                                            <div className="d-flex justify-content-between">
-                                                <p>Product 4 - Best thing of all</p>
-                                                <p>&#8377; 140.00</p>
-                                            </div>
-                                            <hr/>
-                                            <div className="d-flex justify-content-between">
-                                                <p>Total</p>
-                                                <p>&#8377; 389.00</p>
-                                            </div>
-                            </div>*/}
+                                   
                                     </div> 
                                 </div>
                             </div>
                             ) : null}
                             {count === 3 ? (
                             <div>
-                              <Link to='/'><button style={{marginLeft:'35%',marginTop:'10px',marginBottom:"20%"}} className="btn btn-lg btn-warning" type="submit">Place Order</button></Link>
+                              <Link to='/'><button style={{marginLeft:'35%',marginTop:'10px',marginBottom:"10%"}} className="btn btn-lg btn-warning" type="submit">Place Order</button></Link>
                             </div>
                             ) : null}
                         </form>
                         <div>
                             {/* {count === 1 ? null : ( <button className="btn btn-outline-success" onClick={()=>setCount(count-1)}>Back</button>)} */}
-                            {count === 3 ? null : ( <button style={{marginBottom:'20%'}} className="btn btn-outline-success" onClick={()=>setCount(count+1)} >Next</button>)}
+                            {count === 3 ? null : ( <button style={{marginBottom:'10px'}} className="btn btn-outline-success" onClick={()=>setCount(count+1)} >Next</button>)}
                         </div>
                     </div>
                 </div>

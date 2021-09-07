@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useCallback} from 'react'
-import {Redirect, Route ,  Switch} from 'react-router-dom'
+import { Route ,  Switch} from 'react-router-dom'
 import { ProductDetail , ProductList } from './components/products'
 import Header from './components/Header'
 import Footer from './components/Footer'
 import SignIn from './components/SignIn'
 import SignUp from './components/SignUp'
-import { Container } from '@material-ui/core'
+
 import Body from './components/Body'
 
 import Checkout from './components/Checkout'
@@ -14,22 +14,24 @@ import { useDispatch } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { dispatchProductList } from './components/products/action'
 import PrivateRoutes from './Auth/PrivateRoutes'
+import { host } from './Auth/keys'
 
-export default function App() {
+
+
+
+
+export default function App(props) {
 
 const [auth, setAuth ] = useState(false)
 
-//const [price,setPrice] = useState('')
 
-// const getPrice=(price)=>{
-// setPrice(price)
-// }
 const loginHandler=()=>{
 setAuth(true)
 }
 
 const logoutHandler=()=>{
   setAuth(false)
+  localStorage.removeItem("key")
 }
 
 
@@ -38,7 +40,13 @@ const logoutHandler=()=>{
 
 
     const getData =  useCallback( async ()=>{
-        const res = await axios.get('https://api.jsonbin.io/b/6123b6e9076a223676affd99') 
+        const config ={
+          headers : {
+          Authorization : localStorage.getItem('key') ? localStorage.getItem('key') : ""
+          }
+        }
+        const res = await axios.get(`${host}cars` , config)
+       
         actions.dispatchProductList(res.data)
     },[]) 
 
@@ -50,7 +58,6 @@ const logoutHandler=()=>{
 
     
     const dispatch = useDispatch()
-    //console.log(productsData)
     const actions = bindActionCreators(
       {
         dispatchProductList
@@ -60,19 +67,22 @@ const logoutHandler=()=>{
 
   return (
     <>
-      <Container>
+      
       <Header logoutHandler={logoutHandler} auth={auth}/>
        <Switch>
        <Route exact path='/' component={Body}/>
-       <Route path='/cars' component={ProductList}/>
-       
+       <Route exact path='/signup' component={SignUp}/>
+       <Route exact path='/signin' render={(props)=><SignIn {...props} loginHandler ={loginHandler}/>}/>
+       <Route exact path='/cars' component={ProductList}/>
+
        <Route path='/product/:id' component={ProductDetail} />
+
+       {/* <Route path='/checkout' component={Checkout}/> */}
         
-        <PrivateRoutes auth={auth} path='/checkout' component={Checkout}/>
+        <PrivateRoutes  path='/checkout' auth={auth} component={Checkout}/>
         
 
-       <Route  path='/signup' component={SignUp}/>
-       <Route  path='/signin' render={(props)=><SignIn {...props} loginHandler ={loginHandler}/>}/>
+       
       
         
       
@@ -81,7 +91,7 @@ const logoutHandler=()=>{
        </Switch>
        
        <Footer/>
-       </Container>
+       
        
         
     </>
@@ -96,3 +106,5 @@ function HandleNotFound(){
     </>
   )
 }
+
+

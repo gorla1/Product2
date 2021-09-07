@@ -1,12 +1,31 @@
 import React from "react"
 import { Link } from "react-router-dom"
 import { Typography } from "@material-ui/core"
-class Footer extends React.Component {
-    render() {
-        return (
-            <div>
+import { makeStyles } from '@material-ui/core/styles';
 
-                <div className="row" style={{fontSize: "18px", position: "static",backgroundColor:'#6E85B2'}}>
+
+
+const useStyles = makeStyles((theme) => ({
+
+    body:{
+        width:'100%',
+        position:'fixed',
+        backgroundColor:"#6E85B2",
+        height:theme.spacing(12)
+
+    }
+}))
+
+
+export default function Footer(){
+
+   const classes = useStyles();
+
+    
+        return (
+            
+
+                <div className={classes.body}>
                     
                         
                         <div className="col" >
@@ -27,13 +46,13 @@ class Footer extends React.Component {
 
                 </div>
 
-            </div>
+            
 
         )
     }
-}
 
-export default Footer
+
+
 
 
 

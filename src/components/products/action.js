@@ -1,10 +1,12 @@
 export const GETPRODUCTSLIST = "GETPRODUCTSLIST"
 export const GETPRODUCTDETAIL = "GETPRODUCTDETAIL"
-export const MAHINDRA = "MAHINDRA"
-export const MARUTHI = "MARUTHI"
-export const FORD="FORD"
-export const ALLCARS="ALLCARS"
 
+export const ALLCARS="ALLCARS"
+export const ALLCARSEARCH ="ALLCARSEARCH"
+
+export const SEARCHCAR = "SEARCHCAR"
+export const RESETPRODUCT = "RESETPRODUCT"
+export const DETAILS = "DETAILS"
 
 export const dispatchProductList = (data)=> dispatch=>{
     return dispatch({
@@ -21,30 +23,51 @@ export const dispatchProductDetail = (data) => dispatch =>{
     })
 }
 
-export const dispatchMahindra = (data) => dispatch =>{
+export const allCars =(history) => dispatch =>{
+    history.push('/cars')
     return dispatch({
-        type : MAHINDRA,
+        type : ALLCARS
+        
+    })
+}
+
+
+
+export const allCarsSearch =(data , history) => dispatch =>{
+    console.log("data" , data)
+    history.push('/cars')
+    
+    return dispatch({
+        type : ALLCARSEARCH,
         payload : data
     })
 }
 
-export const dispatchMaruthi = (data) => dispatch =>{
+
+export const searchField =(data ) => dispatch =>{
+    console.log("data" , data)
     return dispatch({
-        type : MARUTHI,
+        type : SEARCHCAR,
         payload : data
     })
 }
 
-export const dispatchFord = (data) => dispatch =>{
+
+export const dispatchResetProduct =( ) => dispatch =>{
+    
     return dispatch({
-        type : FORD,
+        type : RESETPRODUCT
+        
+    })
+}
+
+export const details = (data) => dispatch =>{
+    return dispatch({
+        type : DETAILS,
         payload : data
     })
 }
 
-export const allCars =(data) => dispatch =>{
-    return dispatch({
-        type : ALLCARS,
-        payload : data
-    })
-}
+
+
+

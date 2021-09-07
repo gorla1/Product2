@@ -2,9 +2,10 @@ import React , {useEffect,useCallback} from 'react'
 import axios  from 'axios'
 import { Paper, Typography , Button , Card , CardActions, CardContent , CardMedia, makeStyles} from '@material-ui/core'
 import { Link } from 'react-router-dom'
-import { dispatchProductDetail } from './action'
+import { dispatchProductDetail , dispatchResetProduct , details } from './action'
 import {useSelector , useDispatch} from 'react-redux'
 import { bindActionCreators } from 'redux'
+
 
 const useStyles = makeStyles((theme) => ({
     cardGrid : {
@@ -40,26 +41,30 @@ const useStyles = makeStyles((theme) => ({
 
 export const ProductDetail = (props) => {
     const classes = useStyles(); 
-  
-    // const [productData , setProductData ] = useState({})
-    // const [isLoading , setIsLoading] = useState(true)
-
     const productData = useSelector((state)=> state.productsReducer)
     const dispatch = useDispatch()
     const actions = bindActionCreators(
       {
-        dispatchProductDetail
+        dispatchProductDetail,
+        dispatchResetProduct,
+        details
       },
       dispatch
     )
 
     const getProductData = useCallback( async ()=>{
-        const res = await axios.get('https://api.jsonbin.io/b/6123b6e9076a223676affd99');
+      const config ={
+        headers : {
+        Authorization : localStorage.getItem('key') ? localStorage.getItem('key') : ""
+        }
+      }
+        const res = await axios.get('http://localhost:3000/api/cars' , config );
         const findProductData = res.data.find((p)=> p.id === parseInt( props.match.params.id))
         console.log(findProductData)
         actions.dispatchProductDetail(findProductData)
-       // setProductData(findProductData)
-       // setIsLoading(false)
+        actions.details(findProductData)
+        //setProduct(findProductData)
+     
     },[props.match.params.id])
 
     useEffect(()=>{
@@ -67,10 +72,16 @@ export const ProductDetail = (props) => {
 
         return ()=> {
           console.log("cleaned up")
+           actions.dispatchResetProduct()
+
         }
     }, [getProductData])
     
-    
+    console.log("pro" , productData.productDetail)
+    if(!productData.productDetail.id){
+      return null
+    }
+
     return (
         <div>
             {
@@ -84,6 +95,7 @@ export const ProductDetail = (props) => {
                                   image = {productData.productDetail.img}
                                   title = "Image title"
                                 />
+                                
                                 </Paper>
                               <CardContent className={classes.cardcontent} >
                                 <Typography variant="h3" style={{marginBottom:'10px'}}>CAR DETAILS:</Typography>
@@ -96,8 +108,6 @@ export const ProductDetail = (props) => {
                               </CardContent>
                               <CardActions className={classes.button} >
                                   <Link to='/Checkout' style={{textDecoration : 'none'}}><Button size="large"  variant='contained' color="secondary" 
-                                  
-                                //  onClick={()=> props.getPrice(productData.productDetail.price)}
                                 style={{marginBottom:"20px"}}
                                   >
                                     Buy Now
